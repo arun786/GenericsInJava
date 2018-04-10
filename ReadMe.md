@@ -75,3 +75,59 @@
         india.addPlayer(footballPlayer);
         
         we are able to add new different kinds of player to the team.
+
+# Generic Class
+
+    package WithGenerics;
+    
+    import WithoutGenerics.Player;
+    
+    import java.util.ArrayList;
+    import java.util.List;
+    
+    public class Team<T> {
+    
+        private String name;
+        private List<T> players = new ArrayList<>();
+    
+        public Team(String name) {
+            this.name = name;
+        }
+    
+        public String getName() {
+            return name;
+        }
+    
+        public void setName(String name) {
+            this.name = name;
+        }
+    
+        public boolean addPlayers(T player) {
+            if (players.contains(player)) {
+                System.out.println("Player " + ((Player) player).getName() + " already exists in the team");
+                return false;
+            }
+            System.out.println("Player " + ((Player) player).getName() + " added ");
+            players.add(player);
+            return true;
+        }
+    }
+    
+   ## we can add players as below
+       
+    Player footballPlayer = new FootballPlayer("Babu Moni");
+    Player cricketPlayer = new CricketPlayer("Sachin");
+    
+    /**
+     * the below will add both football players and cricket players to the team
+     */
+    Team<Player> players = new Team<>("Generic Team");
+    players.addPlayers(footballPlayer);
+    players.addPlayers(cricketPlayer);
+    
+    FootballPlayer footballPlayers = new FootballPlayer("Babu Moni pure");
+    CricketPlayer cricketPlayers = new CricketPlayer("Sachin pure");
+    Team<FootballPlayer> teamFootBallPlayers = new Team<>("Only Football Players");
+    teamFootBallPlayers.addPlayers(footballPlayers);
+    //The below will give a compilation error
+    //teamFootBallPlayers.addPlayers(cricketPlayers);
